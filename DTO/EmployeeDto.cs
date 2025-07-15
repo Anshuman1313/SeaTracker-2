@@ -10,6 +10,7 @@
         public string? Phone { get; set; }
         public string? Department { get; set; }
         public string? Designation { get; set; }
+        public string? ExternalId { get; set; } 
         public DateOnly? JoiningDate { get; set; }
     }
 }

@@ -17,6 +17,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILeaveService, LeaveService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddControllers();
 
 // Register DbContext with connection string
 builder.Services.AddDbContext<DevContext>(options =>

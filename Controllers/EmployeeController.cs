@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assiginment.Controllers
 {
-    [Authorize]
+      [Authorize]
+    //[AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
@@ -57,12 +58,19 @@ namespace Assiginment.Controllers
                 return BadRequest(ModelState);
 
             var created = await _employeeService.CreateAsync(employee);
-            return CreatedAtAction(nameof(GetById), new { id = created.data.EmployeeId }, new
+
+            if(created.code == StatusCodes.Status201Created)
             {
-                data = created,
-                msg = "Employee created successfully",
-                code = "201"
-            });
+                return Ok( new
+                {
+                    msg = "Employee created successfully",
+                    code = "201"
+                });
+            }
+          else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{id}")]
