@@ -4,6 +4,7 @@ using Assiginment.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assiginment.Migrations
 {
     [DbContext(typeof(DevContext))]
-    partial class DevContextModelSnapshot : ModelSnapshot
+    [Migration("20250721124502_Image(fieldString)")]
+    partial class ImagefieldString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,28 +122,6 @@ namespace Assiginment.Migrations
                         .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Assiginment.Models.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImageBase64")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Assiginment.Models.Leaf", b =>
@@ -257,18 +238,6 @@ namespace Assiginment.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Assiginment.Models.Image", b =>
-                {
-                    b.HasOne("Assiginment.Models.Employee", "Employee")
-                        .WithOne("Image")
-                        .HasForeignKey("Assiginment.Models.Image", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Images_EmployeeId");
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("Assiginment.Models.Leaf", b =>
                 {
                     b.HasOne("Assiginment.Models.User", "ApprovedByNavigation")
@@ -289,8 +258,6 @@ namespace Assiginment.Migrations
             modelBuilder.Entity("Assiginment.Models.Employee", b =>
                 {
                     b.Navigation("Attendances");
-
-                    b.Navigation("Image");
 
                     b.Navigation("Leaves");
                 });

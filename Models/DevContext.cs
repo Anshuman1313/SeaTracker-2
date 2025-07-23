@@ -67,6 +67,19 @@ public partial class DevContext : DbContext
                 .HasForeignKey<Employee>(d => d.UserId)
                 .HasConstraintName("FK__Employees__UserI__3F466844");
         });
+        modelBuilder.Entity<Image>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            //how to genrate new id we have to use had defalult value sql
+            entity.Property(e => e.Id).HasDefaultValueSql("NEWID()");
+            entity.HasOne(i => i.Employee)
+            .WithOne(e => e.Image)
+            .HasForeignKey<Image>(e => e.EmployeeId)
+            .HasConstraintName("FK_Images_EmployeeId")
+            .OnDelete(DeleteBehavior.Cascade);
+
+        });
+
 
         modelBuilder.Entity<Leaf>(entity =>
         {
