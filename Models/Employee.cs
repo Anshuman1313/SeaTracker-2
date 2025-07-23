@@ -8,7 +8,6 @@ public partial class Employee
     public Guid EmployeeId { get; set; }
 
     public int? UserId { get; set; }
-
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
@@ -29,7 +28,6 @@ public partial class Employee
     public virtual ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
 
     public virtual ICollection<Leaf> Leaves { get; set; } = new List<Leaf>();
-
-
+    public virtual Image? Image { get; set; }
     public virtual User? User { get; set; }
 }

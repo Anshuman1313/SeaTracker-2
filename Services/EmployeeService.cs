@@ -76,6 +76,16 @@ namespace Assiginment.Services
 
                 var mappedEmployee = _mapper.Map<Employee>(employee);
 
+                //if image is sent
+                if (!string.IsNullOrEmpty(employee.ImageBase64))
+                {
+                    mappedEmployee.Image = new Image
+                    {
+                        ImageBase64 = employee.ImageBase64
+                    };
+                }
+
+
                 _context.Employees.Add(mappedEmployee);
                 await _context.SaveChangesAsync();
 
