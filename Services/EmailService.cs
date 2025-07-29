@@ -25,6 +25,18 @@ public class EmailService : IEmailService
 
         await _smtpClient.SendMailAsync(mailMessage);
     }
+    public async Task FirstPasswordEmailAsync(string toEmail, string subject, string body)
+    {   
+        var mailMessage = new MailMessage()
+        {
+            From = new MailAddress("rana13anshu@gmail.com", "Sea Tracker Team"),
+            Subject = subject,
+            Body = body,
+            IsBodyHtml = true
+        };
+        mailMessage.To.Add(toEmail);
+        await _smtpClient.SendMailAsync(mailMessage);
+    }
     public async Task SendWelcomeEmailAsync(string email, string firstName, int contractId)
     {
 
