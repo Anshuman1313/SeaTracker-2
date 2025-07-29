@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Assiginment.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LeaveController : ControllerBase
@@ -16,7 +16,8 @@ namespace Assiginment.Controllers
         {
             _leaveService = leaveService;
         }
-        [HttpPost]
+        [HttpPost("applyleave")]
+        
         public async Task<IActionResult> ApplyLeave([FromBody] ApplyLeaveDto applyLeave)
         {
             if (!ModelState.IsValid) {

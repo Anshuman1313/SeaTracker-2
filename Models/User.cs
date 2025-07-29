@@ -12,11 +12,18 @@ public partial class User
     public string PasswordHash { get; set; } = null!;
 
     public string Role { get; set; } = null!;
+    
     //enum emply admin 
-
     public bool? IsActive { get; set; } = true;
+
+    
     //by defalult user true when delete false
     public DateTime? CreatedAt { get; set; }
+    
+    //Track first-time login
+    //Force password reset via frontend
+    public bool isFirstLogin { get; set; } = true;
+
 
     public virtual Employee? Employee { get; set; }
 

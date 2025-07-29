@@ -22,8 +22,14 @@ public class UserService : IUserService
     {
         var user = await _context.Users
            .FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName && u.IsActive == true);
+       
+        if (user == null || string.IsNullOrEmpty(user.PasswordHash))
+            return null;
 
-        if (user == null || user.PasswordHash != loginRequest.Password) // ideally hash check
+        // Use BCrypt to verify the password
+        var isPasswordValid = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash);
+
+        if (!isPasswordValid)
             return null;
 
         var token = GenerateJwtToken(user);

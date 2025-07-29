@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Jose;
+using System.Net.Mail;
+using System.Net;
 //var builder i am using this to chech the commit
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILeaveService, LeaveService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICommonService, CommonService>();
 
 // Register DbContext with connection string
 builder.Services.AddDbContext<DevContext>(options =>
@@ -61,13 +64,13 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Optional: Configure Email service (if needed)
-//builder.Services.AddScoped<IEmailService, EmailService>();
-//builder.Services.AddTransient<SmtpClient>(sp => new SmtpClient("smtp.gmail.com")
-//{
-//    Port = 587,
-//    Credentials = new NetworkCredential("your-email", "your-app-password"),
-//    EnableSsl = true
-//});
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddTransient<SmtpClient>(sp => new SmtpClient("smtp.gmail.com")
+{
+    Port = 587,
+    Credentials = new NetworkCredential("rana13anshu@gmail.com", "jzds xggl suhy ofow"),
+    EnableSsl = true
+});
 
 // Enable Authorization (for [Authorize] attributes)
 builder.Services.AddAuthorization();
