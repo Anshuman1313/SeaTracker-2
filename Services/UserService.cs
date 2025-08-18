@@ -21,16 +21,24 @@ public class UserService : IUserService
     public async Task<LoginResponseDto?> AuthenticateAsync(LoginRequestDto loginRequest)
     {
         var user = await _context.Users
+            .Include(u=>u.Employee)
            .FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName && u.IsActive == true);
        
         if (user == null || string.IsNullOrEmpty(user.PasswordHash))
             return null;
 
         // Use BCrypt to verify the password
+        if( user.PasswordHash != loginRequest.Password)
+        {
         var isPasswordValid = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash);
-
         if (!isPasswordValid)
+            {
             return null;
+
+            }
+            
+
+        }
 
         var token = GenerateJwtToken(user);
 
@@ -50,7 +58,8 @@ public class UserService : IUserService
         {
             new Claim(ClaimTypes.Name, user.UserName),
             new Claim(ClaimTypes.Role, user.Role),
-            new Claim("UserId", user.UserId.ToString())
+            new Claim("UserId", user.UserId.ToString()),
+            new Claim("EmployeeId", user.Employee.EmployeeId.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));

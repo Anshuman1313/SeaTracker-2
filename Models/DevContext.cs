@@ -41,8 +41,9 @@ public partial class DevContext : DbContext
 
             entity.Property(e => e.Remarks).HasMaxLength(255);
             entity.Property(e => e.Status)
-                .HasMaxLength(20)
-                .HasDefaultValue("Present");
+            .HasConversion<string>()
+            .HasMaxLength(20)
+            .HasDefaultValue(AttendanceStatus.Absent);
 
             entity.HasOne(d => d.Employee).WithMany(p => p.Attendances)
                 .HasForeignKey(d => d.EmployeeId)

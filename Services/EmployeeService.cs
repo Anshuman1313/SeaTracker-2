@@ -97,6 +97,12 @@ namespace Assiginment.Services
                 var mappedEmployee = _mapper.Map<Employee>(employee);
                 mappedEmployee.UserId = newUser.UserId;
 
+                if (mappedEmployee.JoiningDate == null)
+                {
+                 
+                    mappedEmployee.JoiningDate = DateOnly.FromDateTime(DateTime.UtcNow);
+                }
+
                 //if image is sent
                 if (!string.IsNullOrEmpty(employee.ImageBase64))
                 {

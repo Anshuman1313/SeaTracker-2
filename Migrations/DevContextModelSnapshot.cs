@@ -39,6 +39,9 @@ namespace Assiginment.Migrations
                     b.Property<TimeOnly?>("CheckOutTime")
                         .HasColumnType("time");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid?>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -51,7 +54,13 @@ namespace Assiginment.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValue("Present");
+                        .HasDefaultValue("Absent");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AttendanceId")
                         .HasName("PK__Attendan__8B69261C3BF27B1C");
