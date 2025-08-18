@@ -21,6 +21,7 @@ builder.Services.AddScoped<ILeaveService, LeaveService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICommonService, CommonService>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 // Register DbContext with connection string
 builder.Services.AddDbContext<DevContext>(options =>

@@ -1,7 +1,16 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
+
 namespace Assiginment.Models;
+public enum AttendanceStatus
+{
+    Absent,
+    Present,
+    Leave,
+    HalfDay
+}
 
 public partial class Attendance
 {
@@ -15,9 +24,11 @@ public partial class Attendance
 
     public TimeOnly? CheckOutTime { get; set; }
 
-    public string Status { get; set; } = null!;
+    public AttendanceStatus Status { get; set; } = AttendanceStatus.Absent;
 
     public string? Remarks { get; set; }
-
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public string? UpdatedBy { get; set; }
     public virtual Employee? Employee { get; set; }
 }
